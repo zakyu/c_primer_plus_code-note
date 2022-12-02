@@ -19,5 +19,4 @@ void interchange(int * u, int * v)
     temp = *u;
     *u = *v;
     *v = temp;
-
 }
