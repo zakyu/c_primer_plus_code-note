@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "diceroll.h"
+#include "pe12-7a.h"
 
 void print_array(const int * array, int size);
 

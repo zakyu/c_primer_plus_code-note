@@ -1,4 +1,4 @@
-#include "diceroll.h"
+#include "pe12-7a.h"
 #include <stdio.h>
 #include <stdlib.h>
 
