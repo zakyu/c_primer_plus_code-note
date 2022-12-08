@@ -2,15 +2,18 @@
 
 unsigned font;
 
-#define MASK_ID         0x00fff
-#define MASK_SIZE       0xff01f
-#define MASK_ALIGN      0xfffe7
+#define MASK_SIZE       0x00fe0
+#define MASK_ALIGN      0x00018
 #define MASK_BOLD       0x00004
 #define MASK_ITALIC     0x00002
 #define MASK_UNDERLINE  0x00001
 
+#define CLEAN_ID        0x00fff
+#define CLEAN_SIZE      0xff01f
+#define CLEAN_ALIGN     0xfffe7
+
 void show_menu();
-void cleanbuf();
+void clean_buf();
 void change_font();
 void change_size();
 void change_alignment();
@@ -38,13 +41,13 @@ int main(void)
             continue;
             break;
         }
-        cleanbuf();
+        clean_buf();
         show_menu();
     }
     return 0;
 }
 
-void cleanbuf()
+void clean_buf()
 {
     while (getchar() != '\n')
         continue;
@@ -54,8 +57,8 @@ void show_menu()
 {
     printf("%5s%10s%15s%5s%5s%5s\n", "ID", "SIZE", "ALIGNMENT", "B", "I", "U");
     printf("%5u", font>>12);
-    printf("%10u", (font&0x00fe0)>>5);
-    switch ((font&0x00018)>>3)
+    printf("%10u", (font&MASK_SIZE)>>5);
+    switch ((font&MASK_ALIGN)>>3)
     {
     case 0: printf("%15s", "left");break;
     case 1: printf("%15s", "center");break;
@@ -77,7 +80,7 @@ void change_font()
     printf("Enter font id (0-255): ");
     unsigned temp;
     scanf("%u", &temp);
-    font = (font & MASK_ID) | (temp<<12);
+    font = (font & CLEAN_ID) | (temp<<12);
 }
 
 void change_size()
@@ -85,7 +88,7 @@ void change_size()
     printf("Enter font id (0-127): ");
     unsigned temp;
     scanf("%u", &temp);
-    font = font & MASK_SIZE | (temp<<5);
+    font = font & CLEAN_SIZE | (temp<<5);
 }
 
 void change_alignment()
@@ -93,7 +96,7 @@ void change_alignment()
     printf("Enter font id (0-2): ");
     unsigned temp;
     scanf("%u", &temp);
-    font = font & MASK_ALIGN | (temp<<3);
+    font = font & CLEAN_ALIGN | (temp<<3);
 }
 
 void toggle_bold()

@@ -12,7 +12,7 @@ struct font
 
 typedef struct font Font;
 void show_menu(Font font);
-void cleanbuf();
+void clean_buf();
 void change_font(Font * font);
 void change_size(Font * font);
 void change_alignment(Font * font);
@@ -40,14 +40,14 @@ int main(void)
             continue;
             break;
         }
-        cleanbuf();
+        clean_buf();
         show_menu(font);
     }
     return 0;
 }
 
 
-void cleanbuf()
+void clean_buf()
 {
     while (getchar() != '\n')
         continue;
